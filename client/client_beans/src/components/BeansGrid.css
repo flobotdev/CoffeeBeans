@@ -75,6 +75,13 @@
 .price {
   font-weight: bold;
   margin: 0.5rem 0;
+  color: #333;
+}
+
+.coffee-card h3 {
+  color: #333;
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
 }
 
 /* ---------- Buttons ---------- */
