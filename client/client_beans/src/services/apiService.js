@@ -35,7 +35,7 @@ async function apiCall(endpoint, options = {}) {
     return await response.json();
   } catch (error) {
     console.error("API call error:", error);
-    throw error;
+    return null;
   }
 }
 
@@ -84,7 +84,7 @@ export const getProfile = () => apiCall("/auth/profile");
 // API functions
 export const getAllBeans = () => apiCall("/beans");
 
-export const getBeansOfTheDay = () => apiCall("/beans/botd");
+export const getBeansOfTheDay = () => apiCall("/beans/botd", {}, true);
 
 export const searchBeans = (query) =>
   apiCall(`/beans/search?q=${encodeURIComponent(query)}`);

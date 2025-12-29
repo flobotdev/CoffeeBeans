@@ -7,7 +7,7 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "dev:full": "concurrently \"npm run dev\" \"npm run client\"",
-    "client": "cd ../client/client_beans && npm start"
+    "client": "cd ../../client/client_beans && npm start"
   },
   "keywords": [
     "coffee",

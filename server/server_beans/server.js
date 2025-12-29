@@ -67,6 +67,23 @@ app.get("/api/beans/botd", async (req, res) => {
   }
 });
 
+// GET all beans
+app.get("/api/beans", async (req, res) => {
+  try {
+    const result = await query(
+      `
+      SELECT id, index, is_botd as "isBOTD", cost::float as "Cost", image as "Image",
+             colour, name as "Name", description as "Description", country as "Country"
+      FROM beans ORDER BY index
+    `
+    );
+
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch beans" });
+  }
+});
+
 // GET /api/beans/search - Search beans
 app.get("/api/beans/search", async (req, res) => {
   try {

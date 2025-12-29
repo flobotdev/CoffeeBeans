@@ -81,7 +81,7 @@ export default function CoffeeGrid({ handleAddToOrder }) {
       <div className="coffee-grid">
         {filteredBeans.map((bean) => (
           <BeanCard
-            key={bean._id}
+            key={bean.id}
             bean={bean}
             onAddToOrder={handleAddToOrder}
           />

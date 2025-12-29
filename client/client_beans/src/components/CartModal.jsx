@@ -24,7 +24,7 @@ export default function CartModal({
             <p className="empty-cart">Your cart is empty</p>
           ) : (
             orderItems.map((item, index) => (
-              <div key={`${item._id}-${index}`} className="cart-item">
+              <div key={`${item.id}-${index}`} className="cart-item">
                 <img
                   src={item.Image}
                   alt={item.Name}

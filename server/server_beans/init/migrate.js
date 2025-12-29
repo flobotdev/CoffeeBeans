@@ -1,6 +1,6 @@
 const fs = require("fs").promises;
 const path = require("path");
-const { query } = require("./db/db");
+const { query } = require("../db/db");
 
 const BEANS_FILE = path.join(__dirname, "beans.json");
 

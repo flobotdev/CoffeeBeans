@@ -12,7 +12,7 @@ if %errorlevel% neq 0 (
     pause
     exit /b 1
 )
-echo ✓ Server dependencies installed successfully
+echo Server dependencies installed successfully
 echo.
 
 echo Step 2: Installing client dependencies...
@@ -23,12 +23,12 @@ if %errorlevel% neq 0 (
     pause
     exit /b 1
 )
-echo ✓ Client dependencies installed successfully
+echo Client dependencies installed successfully
 echo.
 
 echo Step 3: Returning to server directory...
 cd ..\..\server\server_beans
-echo ✓ Ready for database setup
+echo Ready for database setup
 echo.
 
 echo ========================================
@@ -75,7 +75,5 @@ echo   npm run dev:full
 echo.
 echo This will start both the server (http://localhost:3001)
 echo and client (http://localhost:3000) simultaneously.
-echo.
-echo Happy coding! ☕
 echo.
 pause

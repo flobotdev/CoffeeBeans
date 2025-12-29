@@ -4,7 +4,7 @@ import BeanCard from "./BeanCard";
 import "./BeansOfTheDay.css";
 
 export default function BeansOfTheDay({ handleAddToOrder }) {
-  const [botdBeans, setBotdBeans] = useState([]);
+  const [botdBean, setBotdBean] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -12,11 +12,11 @@ export default function BeansOfTheDay({ handleAddToOrder }) {
     const loadBeansOfTheDay = async () => {
       try {
         setLoading(true);
-        const beans = await getBeansOfTheDay();
-        setBotdBeans(beans);
+        const bean = await getBeansOfTheDay();
+        setBotdBean(bean);
       } catch (err) {
-        setError("Failed to load beans of the day");
-        console.error("Error loading beans of the day:", err);
+        setError("Failed to load bean of the day");
+        console.error("Error loading bean of the day:", err);
       } finally {
         setLoading(false);
       }
@@ -27,20 +27,18 @@ export default function BeansOfTheDay({ handleAddToOrder }) {
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return null;
-  if (botdBeans.length === 0) return null;
+  if (!botdBean) return null;
 
   return (
     <section className="botd-section">
-      <h2 className="botd-title">☕ Beans of the Day</h2>
+      <h2 className="botd-title">☕ Bean of the Day</h2>
 
       <div className="botd-grid">
-        {botdBeans.map((bean) => (
-          <BeanCard
-            key={bean._id}
-            bean={bean}
-            onAddToOrder={handleAddToOrder}
-          />
-        ))}
+        <BeanCard
+          key={botdBean.id}
+          bean={botdBean}
+          onAddToOrder={handleAddToOrder}
+        />
       </div>
     </section>
   );

@@ -4,12 +4,21 @@
 /node_modules
 /.pnp
 .pnp.js
+.pnp.loader.mjs
 
 # testing
 /coverage
 
 # production
 /build
+
+# cache
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+.vite/
+.eslintcache
 
 # misc
 .DS_Store
