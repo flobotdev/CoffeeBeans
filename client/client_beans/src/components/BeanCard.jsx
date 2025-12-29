@@ -2,7 +2,7 @@ import { useState } from "react";
 import BeanModal from "./BeanModal";
 
 export default function BeanCard({ bean, onAddToOrder }) {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <div className="coffee-card">
@@ -16,17 +16,11 @@ export default function BeanCard({ bean, onAddToOrder }) {
       <p className="price">£{bean.Cost.toFixed(2)}</p>
 
       <div className="card-actions">
-        <button
-          className="details-btn"
-          onClick={() => setOpen(true)}
-        >
+        <button className="details-btn" onClick={() => setOpen(true)}>
           More Details
         </button>
 
-        <button
-          className="add-btn"
-          onClick={() => onAddToOrder?.(bean)}
-        >
+        <button className="add-btn" onClick={() => onAddToOrder?.(bean)}>
           Add to Order
         </button>
       </div>

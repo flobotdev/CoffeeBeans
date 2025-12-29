@@ -19,8 +19,8 @@ export default function CoffeeGrid({ handleAddToOrder }) {
         setAllBeans(beans);
         setFilteredBeans(beans);
       } catch (err) {
-        setError('Failed to load beans. Make sure the API server is running.');
-        console.error('Error loading beans:', err);
+        setError("Failed to load beans. Make sure the API server is running.");
+        console.error("Error loading beans:", err);
       } finally {
         setLoading(false);
       }
@@ -40,12 +40,13 @@ export default function CoffeeGrid({ handleAddToOrder }) {
           const results = await searchBeans(search);
           setFilteredBeans(results);
         } catch (err) {
-          console.error('Search error:', err);
+          console.error("Search error:", err);
           // Fallback to local filtering
-          const localFiltered = allBeans.filter(bean =>
-            bean.Name.toLowerCase().includes(search.toLowerCase()) ||
-            bean.Country.toLowerCase().includes(search.toLowerCase()) ||
-            bean.colour.toLowerCase().includes(search.toLowerCase())
+          const localFiltered = allBeans.filter(
+            (bean) =>
+              bean.Name.toLowerCase().includes(search.toLowerCase()) ||
+              bean.Country.toLowerCase().includes(search.toLowerCase()) ||
+              bean.colour.toLowerCase().includes(search.toLowerCase())
           );
           setFilteredBeans(localFiltered);
         }
@@ -78,7 +79,7 @@ export default function CoffeeGrid({ handleAddToOrder }) {
 
       {/* Main grid */}
       <div className="coffee-grid">
-        {filteredBeans.map(bean => (
+        {filteredBeans.map((bean) => (
           <BeanCard
             key={bean._id}
             bean={bean}

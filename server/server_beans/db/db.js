@@ -1,13 +1,13 @@
-const { Pool } = require('pg');
-require('dotenv').config();
+const { Pool } = require("pg");
+require("dotenv").config();
 
 // Database configuration
 const dbConfig = {
-  host: process.env.DB_HOST || 'localhost',
+  host: process.env.DB_HOST || "localhost",
   port: process.env.DB_PORT || 5432,
-  database: process.env.DB_NAME || 'coffee_beans_db',
-  user: process.env.DB_USER || 'postgres',
-  password: process.env.DB_PASSWORD || 'your_password_here',
+  database: process.env.DB_NAME || "coffee_beans_db",
+  user: process.env.DB_USER || "postgres",
+  password: process.env.DB_PASSWORD || "your_password_here",
   max: 20, // Maximum number of clients in the pool
   idleTimeoutMillis: 30000, // Close idle clients after 30 seconds
   connectionTimeoutMillis: 2000, // Return an error after 2 seconds if connection could not be established
@@ -17,12 +17,12 @@ const dbConfig = {
 const pool = new Pool(dbConfig);
 
 // Event handlers for the pool
-pool.on('connect', (client) => {
-  console.log('New client connected to the database');
+pool.on("connect", (client) => {
+  console.log("New client connected to the database");
 });
 
-pool.on('error', (err, client) => {
-  console.error('Unexpected error on idle client', err);
+pool.on("error", (err, client) => {
+  console.error("Unexpected error on idle client", err);
   process.exit(-1);
 });
 
@@ -30,11 +30,11 @@ pool.on('error', (err, client) => {
 const testConnection = async () => {
   try {
     const client = await pool.connect();
-    console.log('Database connected successfully');
+    console.log("Database connected successfully");
     client.release();
     return true;
   } catch (err) {
-    console.error('Database connection failed:', err.message);
+    console.error("Database connection failed:", err.message);
     return false;
   }
 };
@@ -48,7 +48,7 @@ const query = async (text, params) => {
     //console.log('Executed query', { text, duration, rows: res.rowCount });
     return res;
   } catch (err) {
-    console.error('Query error:', err);
+    console.error("Query error:", err);
     throw err;
   }
 };
@@ -56,5 +56,5 @@ const query = async (text, params) => {
 module.exports = {
   pool,
   query,
-  testConnection
+  testConnection,
 };

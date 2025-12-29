@@ -15,8 +15,8 @@ export default function BeansOfTheDay({ handleAddToOrder }) {
         const beans = await getBeansOfTheDay();
         setBotdBeans(beans);
       } catch (err) {
-        setError('Failed to load beans of the day');
-        console.error('Error loading beans of the day:', err);
+        setError("Failed to load beans of the day");
+        console.error("Error loading beans of the day:", err);
       } finally {
         setLoading(false);
       }
@@ -34,7 +34,7 @@ export default function BeansOfTheDay({ handleAddToOrder }) {
       <h2 className="botd-title">☕ Beans of the Day</h2>
 
       <div className="botd-grid">
-        {botdBeans.map(bean => (
+        {botdBeans.map((bean) => (
           <BeanCard
             key={bean._id}
             bean={bean}

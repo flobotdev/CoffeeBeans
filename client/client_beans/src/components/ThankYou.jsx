@@ -7,7 +7,10 @@ export default function ThankYou({ onClose }) {
         <div className="thank-you-content">
           <div className="success-icon">✓</div>
           <h2>Thank You for Your Order!</h2>
-          <p>Your coffee beans are on their way. We'll send you a confirmation email shortly.</p>
+          <p>
+            Your coffee beans are on their way. We'll send you a confirmation
+            email shortly.
+          </p>
           <button className="continue-btn" onClick={onClose}>
             Continue Shopping
           </button>

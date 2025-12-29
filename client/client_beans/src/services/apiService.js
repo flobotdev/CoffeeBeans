@@ -1,7 +1,7 @@
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = "http://localhost:3001/api";
 
 // Helper function to get auth token from localStorage
-const getAuthToken = () => localStorage.getItem('authToken');
+const getAuthToken = () => localStorage.getItem("authToken");
 
 // Helper function for API calls
 async function apiCall(endpoint, options = {}) {
@@ -9,13 +9,13 @@ async function apiCall(endpoint, options = {}) {
 
   const token = getAuthToken();
   const headers = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     ...options.headers,
   };
 
   // Add authorization header if token exists
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+    headers["Authorization"] = `Bearer ${token}`;
   }
 
   const config = {
@@ -27,79 +27,85 @@ async function apiCall(endpoint, options = {}) {
     const response = await fetch(url, config);
 
     if (!response.ok) {
-      throw new Error(`API call failed: ${response.status} ${response.statusText}`);
+      throw new Error(
+        `API call failed: ${response.status} ${response.statusText}`
+      );
     }
 
     return await response.json();
   } catch (error) {
-    console.error('API call error:', error);
+    console.error("API call error:", error);
     throw error;
   }
 }
 
 // Authentication API functions
 export const register = async (userData) => {
-  const response = await apiCall('/auth/register', {
-    method: 'POST',
+  const response = await apiCall("/auth/register", {
+    method: "POST",
     body: JSON.stringify(userData),
   });
 
   // Store token if registration successful
   if (response.token) {
-    localStorage.setItem('authToken', response.token);
+    localStorage.setItem("authToken", response.token);
   }
 
   return response;
 };
 
 export const login = async (credentials) => {
-  const response = await apiCall('/auth/login', {
-    method: 'POST',
+  const response = await apiCall("/auth/login", {
+    method: "POST",
     body: JSON.stringify(credentials),
   });
 
   // Store token if login successful
   if (response.token) {
-    localStorage.setItem('authToken', response.token);
+    localStorage.setItem("authToken", response.token);
   }
 
   return response;
 };
 
 export const logout = async () => {
-  const response = await apiCall('/auth/logout', {
-    method: 'POST',
+  const response = await apiCall("/auth/logout", {
+    method: "POST",
   });
 
   // Remove token from localStorage
-  localStorage.removeItem('authToken');
+  localStorage.removeItem("authToken");
 
   return response;
 };
 
-export const getProfile = () => apiCall('/auth/profile');
+export const getProfile = () => apiCall("/auth/profile");
 
 // API functions
-export const getAllBeans = () => apiCall('/beans');
+export const getAllBeans = () => apiCall("/beans");
 
-export const getBeansOfTheDay = () => apiCall('/beans/botd');
+export const getBeansOfTheDay = () => apiCall("/beans/botd");
 
-export const searchBeans = (query) => apiCall(`/beans/search?q=${encodeURIComponent(query)}`);
+export const searchBeans = (query) =>
+  apiCall(`/beans/search?q=${encodeURIComponent(query)}`);
 
 export const getBeanById = (id) => apiCall(`/beans/${id}`);
 
-export const addBean = (beanData) => apiCall('/beans', {
-  method: 'POST',
-  body: JSON.stringify(beanData),
-});
+export const addBean = (beanData) =>
+  apiCall("/beans", {
+    method: "POST",
+    body: JSON.stringify(beanData),
+  });
 
-export const updateBean = (id, beanData) => apiCall(`/beans/${id}`, {
-  method: 'PUT',
-  body: JSON.stringify(beanData),
-});
+export const updateBean = (id, beanData) =>
+  apiCall(`/beans/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(beanData),
+  });
 
-export const deleteBean = (id) => apiCall(`/beans/${id}`, {
-  method: 'DELETE',
-});
+export const deleteBean = (id) =>
+  apiCall(`/beans/${id}`, {
+    method: "DELETE",
+  });
 
-export const healthCheck = () => apiCall('/health');
+export const healthCheck = () => apiCall("/health");

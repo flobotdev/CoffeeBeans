@@ -1,12 +1,11 @@
-import './App.css';
-import CoffeeGrid from './components/BeansGrid';
-import BeansOfTheDay from './components/BeansOfTheDay';
+import "./App.css";
+import CoffeeGrid from "./components/BeansGrid";
+import BeansOfTheDay from "./components/BeansOfTheDay";
 import Header from "./components/Header";
 import CartModal from "./components/CartModal";
 import CheckoutForm from "./components/CheckoutForm";
 import ThankYou from "./components/ThankYou";
-import { useState } from 'react';
-
+import { useState } from "react";
 
 function App() {
   const [orderItems, setOrderItems] = useState([]);
@@ -38,22 +37,18 @@ function App() {
 
   const handleOrderSubmit = (formData) => {
     // Here you would typically send the order to a backend
-    console.log('Order submitted:', { items: orderItems, customer: formData });
-    
+    console.log("Order submitted:", { items: orderItems, customer: formData });
+
     // Clear cart and show thank you
     setOrderItems([]);
     setIsCheckoutOpen(false);
     setShowThankYou(true);
   };
 
-  const closeThankYou = () => {
-    setShowThankYou(false);
-  };
-
   return (
     <div className="coffee-page">
       <Header orderCount={orderCount} onCartClick={openCart} />
-      <BeansOfTheDay handleAddToOrder={addToOrder}/>
+      <BeansOfTheDay handleAddToOrder={addToOrder} />
       <CoffeeGrid handleAddToOrder={addToOrder} />
       {isCartOpen && (
         <CartModal
@@ -71,7 +66,11 @@ function App() {
         />
       )}
       {showThankYou && (
-        <ThankYou onClose={closeThankYou} />
+        <ThankYou
+          onClose={() => {
+            setShowThankYou(false);
+          }}
+        />
       )}
     </div>
   );

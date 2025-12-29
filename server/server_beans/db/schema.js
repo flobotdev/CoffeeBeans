@@ -1,5 +1,5 @@
 // Database schema and initialization
-const { query } = require('./db');
+const { query } = require("./db");
 
 // Create beans table
 const createBeansTable = `
@@ -35,9 +35,9 @@ const initializeDatabase = async () => {
     // Create indexes
     await query(createIndexes);
 
-    console.log('Database initialized successfully');
+    console.log("Database initialized successfully");
   } catch (error) {
-    console.error('Database initialization failed:', error);
+    console.error("Database initialization failed:", error);
     throw error;
   }
 };
@@ -45,5 +45,5 @@ const initializeDatabase = async () => {
 module.exports = {
   initializeDatabase,
   createBeansTable,
-  createIndexes
+  createIndexes,
 };

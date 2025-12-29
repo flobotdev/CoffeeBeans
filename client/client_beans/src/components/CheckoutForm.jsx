@@ -5,14 +5,14 @@ export default function CheckoutForm({ total, onSubmit, onCancel }) {
   const [formData, setFormData] = useState({
     fullName: "",
     address: "",
-    email: ""
+    email: "",
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -28,7 +28,9 @@ export default function CheckoutForm({ total, onSubmit, onCancel }) {
       <div className="checkout-form">
         <div className="checkout-header">
           <h2>Checkout</h2>
-          <button className="close-btn" onClick={onCancel}>×</button>
+          <button className="close-btn" onClick={onCancel}>
+            ×
+          </button>
         </div>
 
         <div className="checkout-summary">

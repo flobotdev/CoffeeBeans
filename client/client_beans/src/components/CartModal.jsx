@@ -1,7 +1,12 @@
 import { createPortal } from "react-dom";
 import "./CartModal.css";
 
-export default function CartModal({ orderItems, onClose, onRemoveItem, onCheckout }) {
+export default function CartModal({
+  orderItems,
+  onClose,
+  onRemoveItem,
+  onCheckout,
+}) {
   const totalPrice = orderItems.reduce((sum, item) => sum + item.Cost, 0);
 
   return createPortal(
@@ -9,7 +14,9 @@ export default function CartModal({ orderItems, onClose, onRemoveItem, onCheckou
       <div className="cart-modal" onClick={(e) => e.stopPropagation()}>
         <div className="cart-header">
           <h2>Shopping Cart</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
+          <button className="close-btn" onClick={onClose}>
+            ×
+          </button>
         </div>
 
         <div className="cart-items">
@@ -18,7 +25,11 @@ export default function CartModal({ orderItems, onClose, onRemoveItem, onCheckou
           ) : (
             orderItems.map((item, index) => (
               <div key={`${item._id}-${index}`} className="cart-item">
-                <img src={item.Image} alt={item.Name} className="cart-item-image" />
+                <img
+                  src={item.Image}
+                  alt={item.Name}
+                  className="cart-item-image"
+                />
                 <div className="cart-item-details">
                   <h3>{item.Name}</h3>
                   <p className="cart-item-country">{item.Country}</p>
@@ -41,7 +52,9 @@ export default function CartModal({ orderItems, onClose, onRemoveItem, onCheckou
             <div className="cart-total">
               <strong>Total: £{totalPrice.toFixed(2)}</strong>
             </div>
-            <button className="checkout-btn" onClick={onCheckout}>Checkout</button>
+            <button className="checkout-btn" onClick={onCheckout}>
+              Checkout
+            </button>
           </div>
         )}
       </div>
