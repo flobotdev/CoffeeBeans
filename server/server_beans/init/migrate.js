@@ -63,11 +63,42 @@ async function migrateBeans() {
   }
 }
 
+// Initialize bean of the day
+async function initializeBeanOfTheDay() {
+  try {
+    console.log("Initializing bean of the day...");
+
+    // Get a random bean to set as initial bean of the day
+    const result = await query(
+      `SELECT id FROM beans ORDER BY RANDOM() LIMIT 1`
+    );
+
+    if (result.rows.length > 0) {
+      const today = new Date().toISOString().split("T")[0];
+      const beanId = result.rows[0].id;
+
+      await query(
+        `INSERT INTO bean_of_the_day (bean_id, selected_date)
+         VALUES ($1, $2) ON CONFLICT (selected_date) DO NOTHING`,
+        [beanId, today]
+      );
+
+      console.log(`Initialized bean of the day with bean ID: ${beanId}`);
+    } else {
+      console.log("No beans available to initialize bean of the day");
+    }
+  } catch (error) {
+    console.error("Bean of the day initialization failed:", error);
+    throw error;
+  }
+}
+
 // Main migration function
 async function migrateData() {
   try {
     console.log("Starting data migration from JSON to PostgreSQL...");
     await migrateBeans();
+    await initializeBeanOfTheDay();
 
     console.log("Data migration completed successfully!");
   } catch (error) {
@@ -84,4 +115,5 @@ if (require.main === module) {
 module.exports = {
   migrateData,
   migrateBeans,
+  initializeBeanOfTheDay,
 };

@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { query, testConnection } = require("./db/db");
 const { initializeDatabase } = require("./db/schema");
+const { getBeanOfTheDay } = require("./db/beanOfTheDay");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -51,18 +52,21 @@ app.use(express.json()); // Parse JSON into objects
 // GET /api/beans/botd - Get bean of the day (single entry)
 app.get("/api/beans/botd", async (req, res) => {
   try {
-    const result = await query(`
-      SELECT id, index, is_botd as "isBOTD", cost::float as "Cost", image as "Image",
-             colour, name as "Name", description as "Description", country as "Country"
-      FROM beans WHERE is_botd = true ORDER BY index LIMIT 1
-    `);
+    const bean = await getBeanOfTheDay();
 
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "No bean of the day found" });
-    }
-
-    res.json(result.rows[0]);
+    res.json({
+      id: bean.id,
+      index: bean.index,
+      isBOTD: true, // Always true for bean of the day
+      Cost: parseFloat(bean.cost),
+      Image: bean.image,
+      colour: bean.colour,
+      Name: bean.name,
+      Description: bean.description,
+      Country: bean.country,
+    });
   } catch (error) {
+    console.error("Error getting bean of the day:", error);
     res.status(500).json({ error: "Failed to fetch bean of the day" });
   }
 });
