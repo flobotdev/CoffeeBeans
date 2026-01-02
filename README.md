@@ -1,6 +1,10 @@
 # All The Beans Full-Stack Application
 
-A prototype-level e-commerce application built with React frontend and Express.js backend. This project aims to demonstrate core full-stack development concepts including REST APIs, JWT authentication, database integration, and modern React patterns. **Note:** This is a test project and not production-ready.
+A prototype-level e-commerce application built with React frontend and Express.js backend. This project aims to demonstrate core full-stack development concepts including REST APIs, JWT authentication, database integration, and modern React patterns.
+**Notes:**
+This is a test project and not production-ready.
+AllTheBeans.json had "cost" string value replaced with a float value so we can easily do sums. The £ sign was hardcoded for this instance but recommendation is to have it localized in DB.
+AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQL it was used a UUID generation.
 
 ## 📝 Future Improvements
 
