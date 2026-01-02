@@ -28,6 +28,7 @@ AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQ
 
 ### 🎨 Frontend Improvements
 
+- Usage of UI libraries for more uniform styling (instead of basic css)
 - Context API or Redux for global state management
 - Persist shopping cart to localStorage
 - Add loading states and skeleton screens

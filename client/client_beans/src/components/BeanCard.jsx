@@ -1,5 +1,6 @@
 import { useState } from "react";
-import BeanModal from "./BeanModal";
+import BeanDetailsModal from "./BeanDetailsModal";
+import AddToOrderButton from "./AddToOrderButton";
 
 export default function BeanCard({ bean, onAddToOrder }) {
   const [open, setOpen] = useState(false);
@@ -19,12 +20,9 @@ export default function BeanCard({ bean, onAddToOrder }) {
         <button className="details-btn" onClick={() => setOpen(true)}>
           More Details
         </button>
-
-        <button className="add-btn" onClick={() => onAddToOrder?.(bean)}>
-          Add to Order
-        </button>
+        <AddToOrderButton bean={bean} onAdd={onAddToOrder} />
       </div>
-      {open && <BeanModal bean={bean} onClose={() => setOpen(false)} />}
+      {open && <BeanDetailsModal bean={bean} onClose={() => setOpen(false)} />}
     </div>
   );
 }

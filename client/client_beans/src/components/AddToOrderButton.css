@@ -1,0 +1,17 @@
+.add-to-order-btn {
+  flex: 1;
+  background: #5d4037;
+  color: #fff;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.add-to-order-btn:hover {
+  background: #4e342e;
+}
+
+.add-to-order-btn:active {
+  transform: scale(0.98);
+}

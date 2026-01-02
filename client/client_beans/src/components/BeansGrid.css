@@ -101,20 +101,6 @@
   cursor: pointer;
 }
 
-.add-btn {
-  flex: 1;
-  background: #5d4037;
-  color: #fff;
-  border: none;
-  padding: 0.5rem;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
 .details-btn:hover {
   background: #efebe9;
-}
-
-.add-btn:hover {
-  background: #4e342e;
 }
