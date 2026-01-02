@@ -12,37 +12,21 @@ const JWT_SECRET =
   process.env.JWT_SECRET || "your-super-secret-jwt-key-change-in-production";
 
 // JWT Authentication Middleware
-/*
 function authenticateToken(req, res, next) {
-  const authHeader = req.headers['authorization'];
-  const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1]; // Bearer TOKEN
 
   if (!token) {
-    return res.status(401).json({ error: 'Access token required' });
+    return res.status(401).json({ error: "Access token required" });
   }
 
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) {
-      return res.status(403).json({ error: 'Invalid or expired token' });
+      return res.status(403).json({ error: "Invalid or expired token" });
     }
     req.user = user;
     next();
   });
-}
-*/
-
-function authenticateToken(req, res, next) {
-  // Stub: always authenticate as admin
-  req.user = { role: "admin" };
-  next();
-}
-
-// Admin-only middleware
-function requireAdmin(req, res, next) {
-  if (req.user.role !== "admin") {
-    return res.status(403).json({ error: "Admin access required" });
-  }
-  next();
 }
 
 // Middleware
@@ -142,8 +126,8 @@ app.get("/api/beans/:id", async (req, res) => {
   }
 });
 
-// POST /api/beans - Add new bean (Admin only)
-app.post("/api/beans", authenticateToken, requireAdmin, async (req, res) => {
+// POST /api/beans - Add new bean
+app.post("/api/beans", authenticateToken, async (req, res) => {
   try {
     const newBean = req.body;
 
@@ -190,8 +174,8 @@ app.post("/api/beans", authenticateToken, requireAdmin, async (req, res) => {
   }
 });
 
-// PUT /api/beans/:id - Update bean (Admin only)
-app.put("/api/beans/:id", authenticateToken, requireAdmin, async (req, res) => {
+// PUT /api/beans/:id - Update bean
+app.put("/api/beans/:id", authenticateToken, async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
@@ -240,36 +224,45 @@ app.put("/api/beans/:id", authenticateToken, requireAdmin, async (req, res) => {
   }
 });
 
-// DELETE /api/beans/:id - Delete bean (Admin only)
-app.delete(
-  "/api/beans/:id",
-  authenticateToken,
-  requireAdmin,
-  async (req, res) => {
-    try {
-      const { id } = req.params;
+// DELETE /api/beans/:id - Delete bean
+app.delete("/api/beans/:id", authenticateToken, async (req, res) => {
+  try {
+    const { id } = req.params;
 
-      // Check if bean exists
-      const existingBean = await query("SELECT id FROM beans WHERE id = $1", [
-        id,
-      ]);
-      if (existingBean.rows.length === 0) {
-        return res.status(404).json({ error: "Bean not found" });
-      }
-
-      // Delete bean
-      await query("DELETE FROM beans WHERE id = $1", [id]);
-
-      res.json({ message: "Bean deleted successfully" });
-    } catch (error) {
-      res.status(500).json({ error: "Failed to delete bean" });
+    // Check if bean exists
+    const existingBean = await query("SELECT id FROM beans WHERE id = $1", [
+      id,
+    ]);
+    if (existingBean.rows.length === 0) {
+      return res.status(404).json({ error: "Bean not found" });
     }
+
+    // Delete bean
+    await query("DELETE FROM beans WHERE id = $1", [id]);
+
+    res.json({ message: "Bean deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to delete bean" });
   }
-);
+});
 
 // Health check endpoint
-app.get("/api/health", (req, res) => {
-  res.json({ status: "OK", message: "Coffee Beans API is running" });
+app.get("/api/health", async (req, res) => {
+  try {
+    // Test database connection
+    await testConnection();
+    res.json({
+      status: "OK",
+      message: "Coffee Beans API and database are running",
+    });
+  } catch (error) {
+    console.error("Database connection failed:", error);
+    res.status(500).json({
+      status: "ERROR",
+      message: "Database connection failed",
+      error: error.message,
+    });
+  }
 });
 
 // Start server
@@ -290,9 +283,9 @@ async function startServer() {
       console.log(`   GET  /api/beans/botd      - Get bean of the day`);
       console.log(`   GET  /api/beans/search?q= - Search beans`);
       console.log(`   GET  /api/beans/:id       - Get single bean`);
-      console.log(`   POST /api/beans          - Add new bean (Admin only)`);
-      console.log(`   PUT  /api/beans/:id      - Update bean (Admin only)`);
-      console.log(`   DELETE /api/beans/:id    - Delete bean (Admin only)`);
+      console.log(`   POST /api/beans          - Add new bean`);
+      console.log(`   PUT  /api/beans/:id      - Update bean`);
+      console.log(`   DELETE /api/beans/:id    - Delete bean`);
       console.log(`   GET  /api/health         - Health check`);
     });
   } catch (error) {

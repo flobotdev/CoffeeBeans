@@ -4,7 +4,7 @@ import "./Header.css";
 export default function Header({ orderCount, onCartClick }) {
   return (
     <header className="header-bar">
-      <h1 className="shop-name">Coffee Beans Shop</h1>
+      <h1 className="shop-name">All The Beans</h1>
       <div
         className="basket"
         onClick={onCartClick}

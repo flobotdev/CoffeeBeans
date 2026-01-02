@@ -62,7 +62,16 @@ if %errorlevel% neq 0 (
     pause
     exit /b 1
 )
-echo ✓ Database migration completed successfully
+echo Database migration completed successfully
+echo.
+
+echo Step 5: Generating JWT token...
+call node init\generateToken.js
+if %errorlevel% neq 0 (
+    echo ERROR: Token generation failed
+    pause
+    exit /b 1
+)
 echo.
 
 echo ========================================

@@ -1,7 +1,7 @@
 {
   "name": "coffee-beans-server",
   "version": "1.0.0",
-  "description": "Backend server for Coffee Beans Shop",
+  "description": "Backend server for All The Beans",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
