@@ -1,6 +1,35 @@
-# Coffee Beans Full-Stack Application
+# All The Beans Full-Stack Application
 
-A complete coffee beans e-commerce application with React frontend and Express.js backend.
+A prototype-level e-commerce application built with React frontend and Express.js backend. This project aims to demonstrate core full-stack development concepts including REST APIs, JWT authentication, database integration, and modern React patterns. **Note:** This is a test project and not production-ready.
+
+## 📝 Future Improvements
+
+### 🔐 Security & Authentication
+
+- Add rate limiting to prevent API abuse
+- Implement token refresh endpoint for JWT rotation
+- Input validation/sanitization with express-validator
+- HTTPS setup for production
+
+### 🧪 Testing
+
+- Write unit tests for React components
+- Add API endpoint tests (Jest + Supertest)
+- Integration tests for full user flows
+- E2E tests with Playwright or Cypress
+- Set up test coverage reporting
+
+### 🎨 Frontend Improvements
+
+- Context API or Redux for global state management
+- Persist shopping cart to localStorage
+- Add loading states and skeleton screens
+- Implement React error boundaries
+- Pagination for bean listings
+- Sorting options (price, name, rating)
+- Toast notifications for user feedback
+- Mobile responsive design improvements
+- Accessibility (ARIA labels, keyboard navigation)
 
 ## 🏗️ Architecture
 
@@ -165,8 +194,6 @@ PORT=3001
    - **Frontend**: http://localhost:3000 (React app)
    - **Backend**: http://localhost:3001 (Express API)
 
-## 🏃 Development Workflow
-
 ## 📡 API Endpoints
 
 ### Beans Endpoints
@@ -203,6 +230,16 @@ CREATE TABLE beans (
 );
 ```
 
+```sql
+CREATE TABLE bean_of_the_day (
+    id SERIAL PRIMARY KEY,
+    bean_id VARCHAR(50) NOT NULL REFERENCES beans(id) ON DELETE CASCADE,
+    selected_date DATE NOT NULL DEFAULT CURRENT_DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE(selected_date)
+  );
+```
+
 ## 🌐 Example API Usage
 
 ```bash
@@ -214,16 +251,6 @@ curl "http://localhost:3001/api/beans/search?q=vietnam"
 
 # Get bean of the day (single object)
 curl http://localhost:3001/api/beans/botd
-
-# User registration
-curl -X POST http://localhost:3001/api/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password123","name":"John Doe"}'
-
-# User login
-curl -X POST http://localhost:3001/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"email":"user@example.com","password":"password123"}'
 
 # Add new bean (requires admin auth)
 curl -X POST http://localhost:3001/api/beans \
