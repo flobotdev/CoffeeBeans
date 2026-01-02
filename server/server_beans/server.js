@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { v4: uuidv4 } = require("uuid");
 const { query, testConnection } = require("./db/db");
 const { initializeDatabase } = require("./db/schema");
 const { getBeanOfTheDay } = require("./db/beanOfTheDay");
@@ -138,7 +139,7 @@ app.post("/api/beans", authenticateToken, async (req, res) => {
     const nextIndex = indexResult.rows[0].next_index;
 
     // Generate new ID
-    const beanId = Date.now().toString();
+    const beanId = uuidv4();
 
     await query(
       `
