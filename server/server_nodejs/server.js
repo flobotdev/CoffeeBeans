@@ -43,12 +43,12 @@ app.get("/api/beans/botd", async (req, res) => {
       id: bean.id,
       index: bean.index,
       isBOTD: true, // Always true for bean of the day
-      Cost: parseFloat(bean.cost),
-      Image: bean.image,
+      cost: parseFloat(bean.cost),
+      image: bean.image,
       colour: bean.colour,
-      Name: bean.name,
-      Description: bean.description,
-      Country: bean.country,
+      name: bean.name,
+      description: bean.description,
+      country: bean.country,
     });
   } catch (error) {
     console.error("Error getting bean of the day:", error);
@@ -63,8 +63,8 @@ app.get("/api/beans", async (req, res) => {
       `
       SELECT b.id, b.index, 
              CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
-             b.cost::numeric as "Cost", b.image as "Image",
-             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+             b.cost::numeric as cost, b.image,
+             b.colour, b.name, b.description, b.country
       FROM beans b
       LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
       ORDER BY b.index
@@ -92,8 +92,8 @@ app.get("/api/beans/search", async (req, res) => {
       `
       SELECT b.id, b.index, 
              CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
-             b.cost::numeric as "Cost", b.image as "Image",
-             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+             b.cost::numeric as cost, b.image,
+             b.colour, b.name, b.description, b.country
       FROM beans b
       LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
       WHERE LOWER(b.name) LIKE $1
@@ -119,8 +119,8 @@ app.get("/api/beans/:id", async (req, res) => {
       `
       SELECT b.id, b.index, 
              CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
-             b.cost::numeric as "Cost", b.image as "Image",
-             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+             b.cost::numeric as cost, b.image,
+             b.colour, b.name, b.description, b.country
       FROM beans b
       LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
       WHERE b.id = $1
@@ -160,12 +160,12 @@ app.post("/api/beans", authenticateToken, async (req, res) => {
       [
         beanId,
         nextIndex,
-        newBean.Cost,
-        newBean.Image,
+        newBean.cost,
+        newBean.image,
         newBean.colour,
-        newBean.Name,
-        newBean.Description,
-        newBean.Country,
+        newBean.name,
+        newBean.description,
+        newBean.country,
       ]
     );
 
@@ -174,8 +174,8 @@ app.post("/api/beans", authenticateToken, async (req, res) => {
       `
       SELECT b.id, b.index,
              CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
-             b.cost as "Cost", b.image as "Image",
-             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+             b.cost, b.image,
+             b.colour, b.name, b.description, b.country
       FROM beans b
       LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
       WHERE b.id = $1
@@ -212,12 +212,12 @@ app.put("/api/beans/:id", authenticateToken, async (req, res) => {
       WHERE id = $7
     `,
       [
-        updateData.Cost,
-        updateData.Image,
+        updateData.cost,
+        updateData.image,
         updateData.colour,
-        updateData.Name,
-        updateData.Description,
-        updateData.Country,
+        updateData.name,
+        updateData.description,
+        updateData.country,
         id,
       ]
     );
@@ -227,8 +227,8 @@ app.put("/api/beans/:id", authenticateToken, async (req, res) => {
       `
       SELECT b.id, b.index,
              CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
-             b.cost as "Cost", b.image as "Image",
-             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+             b.cost, b.image,
+             b.colour, b.name, b.description, b.country
       FROM beans b
       LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
       WHERE b.id = $1
