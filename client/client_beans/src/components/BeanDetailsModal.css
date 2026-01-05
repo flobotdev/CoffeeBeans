@@ -6,15 +6,20 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  overflow: hidden;
 }
 
 .modal {
   background: white;
   max-width: 500px;
   width: 90%;
+  max-height: 90vh;
   padding: 2rem;
   border-radius: 16px;
   position: relative;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal img {

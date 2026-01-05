@@ -7,7 +7,10 @@ export default function CartModal({
   onRemoveItem,
   onCheckout,
 }) {
-  const totalPrice = orderItems.reduce((sum, item) => sum + Number(item.Cost), 0);
+  const totalPrice = orderItems.reduce(
+    (sum, item) => sum + Number(item.Cost),
+    0
+  );
 
   return createPortal(
     <div className="cart-modal-overlay" onClick={onClose}>
@@ -34,7 +37,9 @@ export default function CartModal({
                   <h3>{item.Name}</h3>
                   <p className="cart-item-country">{item.Country}</p>
                   <p className="cart-item-roast">{item.colour}</p>
-                  <p className="cart-item-price">£{Number(item.Cost).toFixed(2)}</p>
+                  <p className="cart-item-price">
+                    £{Number(item.Cost).toFixed(2)}
+                  </p>
                 </div>
                 <button
                   className="remove-btn"

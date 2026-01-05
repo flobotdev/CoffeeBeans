@@ -1,6 +1,6 @@
 # All The Beans Full-Stack Application
 
-A prototype-level e-commerce application built with React frontend and Express.js backend. This project aims to demonstrate core full-stack development concepts including REST APIs, JWT authentication, database integration, and modern React patterns.
+A prototype-level e-commerce application built with React frontend and Express.js backend.
 
 **Notes:**
 This is a test project and not production-ready.
@@ -9,16 +9,27 @@ AllTheBeans.json had "cost" string value replaced with a float value so we can e
 
 AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQL it was used a UUID generation.
 
-## 📝 Future Improvements
+**Why did I choose this format?**
+React is a modern framework which is heavily used across the industry. I opted for basic CSS rather than UI libraries as it's simpler for the scope of this test and it lines up better with my current knowledge.
 
-### 🔐 Security & Authentication
+Node.js + Express is a lightweight javascript backend which made it easy to make CRUD Resful APIs as well as connect it to the frontend.
+
+PostgreSQL is the only relational database I could find with easy setup.
+
+JWT authentication is a simple and straightfoward token based auth for this level of application.
+
+I opted in for easiest setup in general and least reliance on third-party systems.
+
+## Future Improvements
+
+### Security & Authentication
 
 - Add rate limiting to prevent API abuse
 - Implement token refresh endpoint for JWT rotation
 - Input validation/sanitization with express-validator
 - HTTPS setup for production
 
-### 🧪 Testing
+### Testing
 
 - Write unit tests for React components
 - Add API endpoint tests (Jest + Supertest)
@@ -26,10 +37,10 @@ AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQ
 - E2E tests with Playwright or Cypress
 - Set up test coverage reporting
 
-### 🎨 Frontend Improvements
+### Frontend Improvements
 
 - Usage of UI libraries for more uniform styling (instead of basic css)
-- Context API or Redux for global state management
+- Global state management
 - Persist shopping cart to localStorage
 - Add loading states and skeleton screens
 - Implement React error boundaries
@@ -39,15 +50,12 @@ AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQ
 - Mobile responsive design improvements
 - Accessibility (ARIA labels, keyboard navigation)
 
-## 🏗️ Architecture
+## Architecture
 
 ### Frontend (React)
 
 - **Framework**: React 19 with Create React App
 - **Styling**: CSS modules and custom styles
-- **Features**: Bean browsing, search, shopping cart, checkout
-- **Components**: Bean cards, modals, forms, responsive grid layout
-- **State Management**: React hooks and local state
 
 ### Backend (Express.js)
 
@@ -57,26 +65,7 @@ AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQ
 - **API**: RESTful endpoints with CORS support
 - **Features**: CRUD operations, search
 
-## ✨ Features
-
-### Frontend Features
-
-- 🫘 **Bean Catalog**: Browse coffee beans with images and details
-- 🔍 **Search & Filter**: Search by name, country, or roast type
-- ⭐ **Beans of the Day**: Featured coffee beans section
-- 🛒 **Shopping Cart**: Add/remove items
-- 💳 **Checkout**: Complete purchase flow with form validation
-
-### Backend Features
-
-- 🔐 **User Authentication**: JWT-based authentication
-- 📊 **Database Integration**: PostgreSQL
-- 🔍 **Advanced Search**: Multi-field text search with indexing
-- 🛡️ **Security**: CORS, input validation
-- 📈 **Performance**: Database indexing and connection pooling
-- 🧪 **Health Checks**: API status monitoring
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 
@@ -84,7 +73,6 @@ AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQ
 - **React Icons** - Icon library
 - **CSS Modules** - Component styling
 - **Create React App** - Build tooling
-- **Testing Library** - Component testing
 
 ### Backend
 
@@ -95,7 +83,7 @@ AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQ
 - **bcrypt** - Password hashing
 - **pg** - PostgreSQL client
 
-## 📋 Prerequisites
+## Prerequisites
 
 ### Required Software
 
@@ -117,7 +105,7 @@ After installing PostgreSQL:
 3. Create user with permissions (default: `postgres`)
 4. Set password for database user
 
-## ⚙️ Environment Configuration
+## Environment Configuration
 
 Create `.env` file in `server/server_beans/` directory if it doesn't exist:
 
@@ -131,7 +119,7 @@ JWT_SECRET=your-super-secret-jwt-key-change-in-production
 PORT=3001
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Option A: Automated Setup (Recommended for Windows)
 
@@ -202,7 +190,7 @@ PORT=3001
    - **Frontend**: http://localhost:3000 (React app)
    - **Backend**: http://localhost:3001 (Express API)
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Beans Endpoints
 
@@ -229,7 +217,7 @@ CREATE TABLE beans (
   id VARCHAR(50) PRIMARY KEY,
   index INTEGER,
   is_botd BOOLEAN DEFAULT FALSE,
-  cost DECIMAL(10,2),
+  cost NUMERIC(10,2),
   image VARCHAR(500),
   colour VARCHAR(100),
   name VARCHAR(255),
@@ -248,7 +236,7 @@ CREATE TABLE bean_of_the_day (
   );
 ```
 
-## 🌐 Example API Usage
+## Example API Usage
 
 ```bash
 # Get all beans
@@ -267,7 +255,7 @@ curl -X POST http://localhost:3001/api/beans \
   -d '{"Name":"New Bean","Cost":25.99,"Country":"Ethiopia","colour":"medium roast"}'
 ```
 
-## 📋 Bean Data Structure
+## Bean Data Structure
 
 Each coffee bean object contains:
 
@@ -285,7 +273,7 @@ Each coffee bean object contains:
 }
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
