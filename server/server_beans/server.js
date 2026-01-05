@@ -61,9 +61,13 @@ app.get("/api/beans", async (req, res) => {
   try {
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost::numeric as "Cost", image as "Image",
-             colour, name as "Name", description as "Description", country as "Country"
-      FROM beans ORDER BY index
+      SELECT b.id, b.index, 
+             CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
+             b.cost::numeric as "Cost", b.image as "Image",
+             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+      FROM beans b
+      LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
+      ORDER BY b.index
     `
     );
 
@@ -86,14 +90,17 @@ app.get("/api/beans/search", async (req, res) => {
     const searchTerm = `%${q.toLowerCase()}%`;
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost::numeric as "Cost", image as "Image",
-             colour, name as "Name", description as "Description", country as "Country"
-      FROM beans
-      WHERE LOWER(name) LIKE $1
-         OR LOWER(country) LIKE $1
-         OR LOWER(colour) LIKE $1
-         OR LOWER(description) LIKE $1
-      ORDER BY index
+      SELECT b.id, b.index, 
+             CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
+             b.cost::numeric as "Cost", b.image as "Image",
+             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+      FROM beans b
+      LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
+      WHERE LOWER(b.name) LIKE $1
+         OR LOWER(b.country) LIKE $1
+         OR LOWER(b.colour) LIKE $1
+         OR LOWER(b.description) LIKE $1
+      ORDER BY b.index
     `,
       [searchTerm]
     );
@@ -110,9 +117,13 @@ app.get("/api/beans/:id", async (req, res) => {
     const { id } = req.params;
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost::numeric as "Cost", image as "Image",
-             colour, name as "Name", description as "Description", country as "Country"
-      FROM beans WHERE id = $1
+      SELECT b.id, b.index, 
+             CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
+             b.cost::numeric as "Cost", b.image as "Image",
+             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+      FROM beans b
+      LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
+      WHERE b.id = $1
     `,
       [id]
     );
@@ -143,13 +154,12 @@ app.post("/api/beans", authenticateToken, async (req, res) => {
 
     await query(
       `
-      INSERT INTO beans (id, index, is_botd, cost, image, colour, name, description, country)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO beans (id, index, cost, image, colour, name, description, country)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
     `,
       [
         beanId,
         nextIndex,
-        newBean.isBOTD || false,
         newBean.Cost,
         newBean.Image,
         newBean.colour,
@@ -162,9 +172,13 @@ app.post("/api/beans", authenticateToken, async (req, res) => {
     // Return the created bean
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost as "Cost", image as "Image",
-             colour, name as "Name", description as "Description", country as "Country"
-      FROM beans WHERE id = $1
+      SELECT b.id, b.index,
+             CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
+             b.cost as "Cost", b.image as "Image",
+             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+      FROM beans b
+      LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
+      WHERE b.id = $1
     `,
       [beanId]
     );
@@ -193,12 +207,11 @@ app.put("/api/beans/:id", authenticateToken, async (req, res) => {
     await query(
       `
       UPDATE beans
-      SET is_botd = $1, cost = $2, image = $3, colour = $4, name = $5,
-          description = $6, country = $7, updated_at = CURRENT_TIMESTAMP
-      WHERE id = $8
+      SET cost = $1, image = $2, colour = $3, name = $4,
+          description = $5, country = $6, updated_at = CURRENT_TIMESTAMP
+      WHERE id = $7
     `,
       [
-        updateData.isBOTD || false,
         updateData.Cost,
         updateData.Image,
         updateData.colour,
@@ -212,9 +225,13 @@ app.put("/api/beans/:id", authenticateToken, async (req, res) => {
     // Return updated bean
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost as "Cost", image as "Image",
-             colour, name as "Name", description as "Description", country as "Country"
-      FROM beans WHERE id = $1
+      SELECT b.id, b.index,
+             CASE WHEN botd.bean_id IS NOT NULL THEN true ELSE false END as "isBOTD",
+             b.cost as "Cost", b.image as "Image",
+             b.colour, b.name as "Name", b.description as "Description", b.country as "Country"
+      FROM beans b
+      LEFT JOIN bean_of_the_day botd ON b.id = botd.bean_id AND botd.selected_date = CURRENT_DATE
+      WHERE b.id = $1
     `,
       [id]
     );

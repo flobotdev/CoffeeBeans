@@ -27,7 +27,6 @@ async function migrateBeans() {
       const beanData = {
         id: bean._id,
         index: bean.index,
-        is_botd: bean.isBOTD || false,
         cost: bean.Cost,
         image: bean.Image,
         colour: bean.colour,
@@ -38,14 +37,13 @@ async function migrateBeans() {
 
       await query(
         `
-        INSERT INTO beans (id, index, is_botd, cost, image, colour, name, description, country)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+        INSERT INTO beans (id, index, cost, image, colour, name, description, country)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         ON CONFLICT (id) DO NOTHING
       `,
         [
           beanData.id,
           beanData.index,
-          beanData.is_botd,
           beanData.cost,
           beanData.image,
           beanData.colour,

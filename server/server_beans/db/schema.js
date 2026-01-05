@@ -6,7 +6,6 @@ const createBeansTable = `
   CREATE TABLE IF NOT EXISTS beans (
     id VARCHAR(50) PRIMARY KEY,
     index INTEGER,
-    is_botd BOOLEAN DEFAULT FALSE,
     cost NUMERIC(10,2) NOT NULL,
     image VARCHAR(500),
     colour VARCHAR(100),
@@ -34,7 +33,6 @@ const createIndexes = `
   CREATE INDEX IF NOT EXISTS idx_beans_name ON beans(name);
   CREATE INDEX IF NOT EXISTS idx_beans_country ON beans(country);
   CREATE INDEX IF NOT EXISTS idx_beans_colour ON beans(colour);
-  CREATE INDEX IF NOT EXISTS idx_beans_is_botd ON beans(is_botd);
 `;
 
 // Initialize database
