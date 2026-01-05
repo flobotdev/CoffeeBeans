@@ -12,13 +12,13 @@ AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQ
 **Why did I choose this format?**
 React is a modern framework which is heavily used across the industry. I opted for basic CSS rather than UI libraries as it's simpler for the scope of this test and it lines up better with my current knowledge.
 
-Node.js + Express is a lightweight javascript backend which made it easy to make CRUD Resful APIs as well as connect it to the frontend.
+Node.js + Express is a lightweight javascript backend which made it easy to make CRUD Restful APIs as well as connect it to the frontend.
 
 PostgreSQL is the only relational database I could find with easy setup.
 
 JWT authentication is a simple and straightfoward token based auth for this level of application.
 
-I opted in for easiest setup in general and least reliance on third-party systems.
+In general, I opted in for easiest setup and least reliance on third-party systems.
 
 ## Future Improvements
 
@@ -216,7 +216,6 @@ PORT=3001
 CREATE TABLE beans (
   id VARCHAR(50) PRIMARY KEY,
   index INTEGER,
-  is_botd BOOLEAN DEFAULT FALSE,
   cost NUMERIC(10,2),
   image VARCHAR(500),
   colour VARCHAR(100),
