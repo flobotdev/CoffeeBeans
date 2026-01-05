@@ -7,7 +7,7 @@ const createBeansTable = `
     id VARCHAR(50) PRIMARY KEY,
     index INTEGER,
     is_botd BOOLEAN DEFAULT FALSE,
-    cost DECIMAL(10,2) NOT NULL,
+    cost NUMERIC(10,2) NOT NULL,
     image VARCHAR(500),
     colour VARCHAR(100),
     name VARCHAR(255) NOT NULL,

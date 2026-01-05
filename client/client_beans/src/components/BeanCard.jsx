@@ -14,7 +14,7 @@ export default function BeanCard({ bean, onAddToOrder }) {
       <h3>{bean.Name}</h3>
       <p className="roast">{bean.colour}</p>
       <p className="country">{bean.Country}</p>
-      <p className="price">£{bean.Cost.toFixed(2)}</p>
+      <p className="price">£{Number(bean.Cost).toFixed(2)}</p>
 
       <div className="card-actions">
         <button className="details-btn" onClick={() => setOpen(true)}>

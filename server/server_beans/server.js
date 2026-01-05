@@ -61,7 +61,7 @@ app.get("/api/beans", async (req, res) => {
   try {
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost::float as "Cost", image as "Image",
+      SELECT id, index, is_botd as "isBOTD", cost::numeric as "Cost", image as "Image",
              colour, name as "Name", description as "Description", country as "Country"
       FROM beans ORDER BY index
     `
@@ -86,7 +86,7 @@ app.get("/api/beans/search", async (req, res) => {
     const searchTerm = `%${q.toLowerCase()}%`;
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost::float as "Cost", image as "Image",
+      SELECT id, index, is_botd as "isBOTD", cost::numeric as "Cost", image as "Image",
              colour, name as "Name", description as "Description", country as "Country"
       FROM beans
       WHERE LOWER(name) LIKE $1
@@ -110,7 +110,7 @@ app.get("/api/beans/:id", async (req, res) => {
     const { id } = req.params;
     const result = await query(
       `
-      SELECT id, index, is_botd as "isBOTD", cost::float as "Cost", image as "Image",
+      SELECT id, index, is_botd as "isBOTD", cost::numeric as "Cost", image as "Image",
              colour, name as "Name", description as "Description", country as "Country"
       FROM beans WHERE id = $1
     `,

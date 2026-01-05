@@ -19,7 +19,7 @@ export default function BeanDetailsModal({ bean, onClose, addToOrder }) {
           <strong>Country:</strong> {bean.Country}
         </p>
         <p>
-          <strong>Price:</strong> £{bean.Cost.toFixed(2)}
+          <strong>Price:</strong> £{Number(bean.Cost).toFixed(2)}
         </p>
         <p className="description">{bean.Description}</p>
         <AddToOrderButton bean={bean} onAdd={addToOrder} />
