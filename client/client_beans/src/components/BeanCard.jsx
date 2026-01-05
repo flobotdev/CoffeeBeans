@@ -9,12 +9,12 @@ export default function BeanCard({ bean, onAddToOrder }) {
     <div className="coffee-card">
       {bean.isBOTD && <span className="botd-badge">Today’s Pick</span>}
 
-      <img src={bean.Image} alt={bean.Name} />
+      <img src={bean.image} alt={bean.name} />
 
-      <h3>{bean.Name}</h3>
+      <h3>{bean.name}</h3>
       <p className="roast">{bean.colour}</p>
-      <p className="country">{bean.Country}</p>
-      <p className="price">£{Number(bean.Cost).toFixed(2)}</p>
+      <p className="country">{bean.country}</p>
+      <p className="price">£{Number(bean.cost).toFixed(2)}</p>
 
       <div className="card-actions">
         <button className="details-btn" onClick={() => setOpen(true)}>

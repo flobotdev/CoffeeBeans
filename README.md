@@ -108,7 +108,7 @@ After installing PostgreSQL:
 
 ## Environment Configuration
 
-Create `.env` file in `server/server_beans/` directory if it doesn't exist:
+Create `.env` file in `server/server_nodejs/` directory if it doesn't exist:
 
 ```env
 DB_HOST=localhost
@@ -149,7 +149,7 @@ PORT=3001
 
    ```bash
    # Install server dependencies
-   cd server/server_beans
+   cd server/server_nodejs
    npm install
 
    # Install client dependencies
@@ -157,7 +157,7 @@ PORT=3001
    npm install
 
    # Return to server directory
-   cd ../../server/server_beans
+   cd ../../server/server_nodejs
    ```
 
 3. **Set up database:**
@@ -182,7 +182,7 @@ PORT=3001
 5. **Start the full application:**
 
    ```bash
-   cd server/server_beans
+   cd server/server_nodejs
    npm run dev:full
    ```
 

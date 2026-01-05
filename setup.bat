@@ -5,7 +5,7 @@ echo ========================================
 echo.
 
 echo Step 1: Installing server dependencies...
-cd server\server_beans
+cd server\server_nodejs
 call npm install
 if %errorlevel% neq 0 (
     echo ERROR: Failed to install server dependencies
@@ -27,7 +27,7 @@ echo Client dependencies installed successfully
 echo.
 
 echo Step 3: Returning to server directory...
-cd ..\..\server\server_beans
+cd ..\..\server\server_nodejs
 echo Ready for database setup
 echo.
 
@@ -79,7 +79,7 @@ echo   SETUP COMPLETE!
 echo ========================================
 echo.
 echo You can now start the application with:
-echo   cd server\server_beans
+echo   cd server\server_nodejs
 echo   npm run dev:full
 echo.
 echo This will start both the server (http://localhost:3001)

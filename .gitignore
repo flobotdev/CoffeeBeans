@@ -2,7 +2,7 @@
 
 # dependencies
 /client/client_beans/node_modules/
-/server/server_beans/node_modules/
+/server/server_nodejs/node_modules/
 /.pnp
 .pnp.js
 .pnp.loader.mjs
@@ -31,3 +31,14 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# C# / .NET
+/server/server_net/AllTheBeans/bin/
+/server/server_net/AllTheBeans/obj/
+*.user
+*.suo
+.vs/
+appsettings.Development.json
+*.db
+*.db-shm
+*.db-wal

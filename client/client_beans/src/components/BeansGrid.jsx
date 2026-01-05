@@ -44,8 +44,8 @@ export default function CoffeeGrid({ handleAddToOrder }) {
           // Fallback to local filtering
           const localFiltered = allBeans.filter(
             (bean) =>
-              bean.Name.toLowerCase().includes(search.toLowerCase()) ||
-              bean.Country.toLowerCase().includes(search.toLowerCase()) ||
+              bean.name.toLowerCase().includes(search.toLowerCase()) ||
+              bean.country.toLowerCase().includes(search.toLowerCase()) ||
               bean.colour.toLowerCase().includes(search.toLowerCase())
           );
           setFilteredBeans(localFiltered);
@@ -80,11 +80,7 @@ export default function CoffeeGrid({ handleAddToOrder }) {
       {/* Main grid */}
       <div className="coffee-grid">
         {filteredBeans.map((bean) => (
-          <BeanCard
-            key={bean.id}
-            bean={bean}
-            onAddToOrder={handleAddToOrder}
-          />
+          <BeanCard key={bean.id} bean={bean} onAddToOrder={handleAddToOrder} />
         ))}
       </div>
     </div>
