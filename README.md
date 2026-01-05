@@ -9,7 +9,8 @@ AllTheBeans.json had "cost" string value replaced with a float value so we can e
 
 AllTheBeans.json has "\_id" which looks like a MongoDB object id. For PostgresSQL it was used a UUID generation.
 
-**Why did I choose this format?**
+### Why did I choose this format?
+
 React is a modern framework which is heavily used across the industry. I opted for basic CSS rather than UI libraries as it's simpler for the scope of this test and it lines up better with my current knowledge.
 
 Node.js + Express is a lightweight javascript backend which made it easy to make CRUD Restful APIs as well as connect it to the frontend.
