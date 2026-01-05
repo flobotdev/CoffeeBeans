@@ -1,6 +1,9 @@
 # All The Beans Full-Stack Application
 
-A prototype-level e-commerce application built with React frontend and Express.js backend.
+A prototype-level e-commerce application built with React frontend and your choice of backend:
+
+- **Node.js + Express** backend
+- **.NET Core** backend
 
 **Notes:**
 This is a test project and not production-ready.
@@ -58,13 +61,23 @@ In general, I opted in for easiest setup and least reliance on third-party syste
 - **Framework**: React 19 with Create React App
 - **Styling**: CSS modules and custom styles
 
-### Backend (Express.js)
+### Backend Options
+
+#### Option 1: Node.js + Express
 
 - **Framework**: Express.js with Node.js
-- **Database**: PostgreSQL with connection pooling
+- **Database**: PostgreSQL with pg client
 - **Authentication**: JWT tokens with bcrypt password hashing
 - **API**: RESTful endpoints with CORS support
-- **Features**: CRUD operations, search
+- **Features**: CRUD operations, search, bean of the day
+
+#### Option 2: .NET Core
+
+- **Framework**: ASP.NET Core Web API
+- **Database**: PostgreSQL with Entity Framework Core
+- **Authentication**: JWT tokens with built-in authentication
+- **API**: RESTful endpoints with CORS support
+- **Features**: CRUD operations, search, bean of the day, automatic database initialization
 
 ## Tech Stack
 
@@ -75,7 +88,7 @@ In general, I opted in for easiest setup and least reliance on third-party syste
 - **CSS Modules** - Component styling
 - **Create React App** - Build tooling
 
-### Backend
+### Backend - Node.js Option
 
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework
@@ -84,17 +97,41 @@ In general, I opted in for easiest setup and least reliance on third-party syste
 - **bcrypt** - Password hashing
 - **pg** - PostgreSQL client
 
+### Backend - .NET Option
+
+- **.NET 8.0** - Runtime environment
+- **ASP.NET Core** - Web framework
+- **Entity Framework Core** - ORM
+- **Npgsql** - PostgreSQL provider
+- **PostgreSQL** - Database
+- **JWT Bearer Authentication** - Token-based auth
+
 ## Prerequisites
 
 ### Required Software
 
 This was developed and tested on a Windows setup.
 
+**For Node.js Backend:**
+
 1. **Node.js** (v14+)
 
    - Download from [nodejs.org](https://nodejs.org/)
 
 2. **PostgreSQL Database**
+   - Download from [postgresql.org](https://www.postgresql.org/download/)
+
+**For .NET Backend:**
+
+1. **Node.js** (v14+) - For React frontend
+
+   - Download from [nodejs.org](https://nodejs.org/)
+
+2. **.NET SDK** (8.0+)
+
+   - Download from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
+
+3. **PostgreSQL Database**
    - Download from [postgresql.org](https://www.postgresql.org/download/)
 
 ### Database Setup
@@ -108,7 +145,9 @@ After installing PostgreSQL:
 
 ## Environment Configuration
 
-Create `.env` file in `server/server_nodejs/` directory if it doesn't exist:
+### Node.js Backend Configuration
+
+Create `.env` file in `server/server_nodejs/` directory:
 
 ```env
 DB_HOST=localhost
@@ -120,32 +159,58 @@ JWT_SECRET=your-super-secret-jwt-key-change-in-production
 PORT=3001
 ```
 
+### .NET Backend Configuration
+
+Update `appsettings.Development.json` in `server/server_net/AllTheBeans/` directory:
+
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Host=localhost;Port=5432;Database=coffee_beans_db;Username=postgres;Password=your_password"
+  },
+  "Jwt": {
+    "Secret": "your-super-secret-jwt-key-change-in-production-min-32-chars",
+    "Issuer": "AllTheBeansAPI",
+    "Audience": "AllTheBeansClient",
+    "ExpiresInHours": "24"
+  }
+}
+```
+
+### Frontend Configuration
+
+Update `client/client_beans/.env` to point to your chosen backend:
+
+```env
+# For Node.js backend
+REACT_APP_API_BASE_URL=http://localhost:3001/api
+
+# For .NET backend (comment out the line above and uncomment this)
+# REACT_APP_API_BASE_URL=http://localhost:5036/api
+```
+
 ## Quick Start
 
-### Option A: Automated Setup (Recommended for Windows)
+### Option 1: Node.js Backend
+
+#### Automated Setup (Recommended for Windows)
 
 1. **Run the automated setup script:**
 
    ```bash
-   setup.bat
+   setup_nodejs.bat
    ```
 
-   This script will automatically:
+   This script will:
 
-   - Install all Node.js dependencies for both frontend and backend
+   - Install all dependencies for frontend and Node.js backend
    - Guide you through PostgreSQL database setup
    - Run database migration with sample data
-   - Provide final setup instructions
+   - Automatically start both frontend and backend in new terminals
 
-### Option B: Manual Setup
+#### Manual Setup
 
-1. **Clone and navigate to project:**
-
-   ```bash
-   cd coffeebeans_test
-   ```
-
-2. **Install all dependencies:**
+1. **Install dependencies:**
 
    ```bash
    # Install server dependencies
@@ -155,43 +220,108 @@ PORT=3001
    # Install client dependencies
    cd ../../client/client_beans
    npm install
-
-   # Return to server directory
-   cd ../../server/server_nodejs
    ```
 
-3. **Set up database:**
+2. **Set up database:**
 
    - Ensure PostgreSQL is running
    - Create database: `coffee_beans_db`
-   - Update `.env` with your database credentials
+   - Update `.env` in `server/server_nodejs/` with your credentials
 
-4. **Initialize sample data:**
-
-   ```bash
-   node init/migrate.js
-   ```
-
-5. **Generate bearer token for testing APIs:**
-   ```bash
-   node init/generateToken.js
-   ```
-
-### Final Step (Both Options)
-
-5. **Start the full application:**
+3. **Initialize sample data:**
 
    ```bash
    cd server/server_nodejs
+   node init/migrate.js
+   ```
+
+4. **Start the application:**
+
+   ```bash
+   # Start both frontend and backend together
    npm run dev:full
    ```
 
-   This starts both:
+   Or start them separately:
 
-   - **Frontend**: http://localhost:3000 (React app)
-   - **Backend**: http://localhost:3001 (Express API)
+   ```bash
+   # Terminal 1: Start backend
+   cd server/server_nodejs
+   npm start
+
+   # Terminal 2: Start frontend
+   cd client/client_beans
+   npm start
+   ```
+
+   - **Frontend**: http://localhost:3000
+   - **Backend**: http://localhost:3001
+
+### Option 2: .NET Backend
+
+#### Automated Setup (Recommended for Windows)
+
+1. **Run the automated setup script:**
+
+   ```bash
+   setup_net.bat
+   ```
+
+   This script will:
+
+   - Install all frontend dependencies
+   - Check for .NET SDK installation
+   - Restore .NET dependencies
+   - Guide you through PostgreSQL database setup
+   - Automatically start both frontend and backend in new terminals
+
+#### Manual Setup
+
+1. **Install dependencies:**
+
+   ```bash
+   # Install client dependencies
+   cd client/client_beans
+   npm install
+
+   # Restore .NET dependencies
+   cd ../../server/server_net/AllTheBeans
+   dotnet restore
+   ```
+
+2. **Set up database:**
+
+   - Ensure PostgreSQL is running
+   - Create database: `coffee_beans_db`
+   - Update `appsettings.Development.json` with your credentials
+   - Note: Database will auto-initialize on first run
+
+3. **Update frontend configuration:**
+
+   - Edit `client/client_beans/.env`
+   - Uncomment the .NET backend URL:
+     ```env
+     REACT_APP_API_BASE_URL=http://localhost:5036/api
+     ```
+
+4. **Start the application:**
+
+   ```bash
+   # Terminal 1: Start .NET backend
+   cd server/server_net/AllTheBeans
+   dotnet run
+
+   # Terminal 2: Start frontend
+   cd client/client_beans
+   npm start
+   ```
+
+   - **Frontend**: http://localhost:3000
+   - **Backend**: http://localhost:5036
 
 ## API Endpoints
+
+Both Node.js and .NET backends implement the same REST API endpoints.
 
 ### Beans Endpoints
 
@@ -201,9 +331,15 @@ PORT=3001
 | GET    | `/api/beans/botd`                | Get bean of the day (single featured bean) |
 | GET    | `/api/beans/search?q=searchterm` | Search beans by name, country, or roast    |
 | GET    | `/api/beans/:id`                 | Get single bean by ID                      |
-| POST   | `/api/beans`                     | Add new bean                               |
-| PUT    | `/api/beans/:id`                 | Update bean                                |
-| DELETE | `/api/beans/:id`                 | Delete bean                                |
+| POST   | `/api/beans`                     | Add new bean (requires authentication)     |
+| PUT    | `/api/beans/:id`                 | Update bean (requires authentication)      |
+| DELETE | `/api/beans/:id`                 | Delete bean (requires authentication)      |
+
+### Authentication Endpoints
+
+| Method | Endpoint          | Description        |
+| ------ | ----------------- | ------------------ |
+| POST   | `/api/auth/token` | Get a bearer token |
 
 ### Utility Endpoints
 
@@ -238,6 +374,8 @@ CREATE TABLE bean_of_the_day (
 
 ## Example API Usage
 
+### Node.js Backend (port 3001)
+
 ```bash
 # Get all beans
 curl http://localhost:3001/api/beans
@@ -245,11 +383,36 @@ curl http://localhost:3001/api/beans
 # Search for Vietnamese beans
 curl "http://localhost:3001/api/beans/search?q=vietnam"
 
-# Get bean of the day (single object)
+# Get bean of the day
 curl http://localhost:3001/api/beans/botd
 
-# Add new bean (requires admin auth)
+# Generate bearer token
+curl -X POST http://localhost:3001/api/auth/token
+
+# Add new bean (requires authentication)
 curl -X POST http://localhost:3001/api/beans \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{"Name":"New Bean","Cost":25.99,"Country":"Ethiopia","colour":"medium roast"}'
+```
+
+### .NET Backend (port 5036)
+
+```bash
+# Get all beans
+curl http://localhost:5036/api/beans
+
+# Search for Vietnamese beans
+curl "http://localhost:5036/api/beans/search?q=vietnam"
+
+# Get bean of the day
+curl http://localhost:5036/api/beans/botd
+
+# Generate bearer token
+curl -X POST http://localhost:5036/api/auth/token
+
+# Add new bean (requires authentication)
+curl -X POST http://localhost:5036/api/beans \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{"Name":"New Bean","Cost":25.99,"Country":"Ethiopia","colour":"medium roast"}'

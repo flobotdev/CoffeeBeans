@@ -1,11 +1,19 @@
 @echo off
+setlocal enabledelayedexpansion
+
 echo ========================================
-echo   Coffee Beans App - Initial Setup
+echo   All The Beans App - .Node.js Setup
 echo ========================================
 echo.
 
 echo Step 1: Installing server dependencies...
 cd server\server_nodejs
+if not exist package.json (
+    echo ERROR: Cannot find package.json in server\server_nodejs
+    echo Make sure you're running this script from the coffeebeans_test directory
+    pause
+    exit /b 1
+)
 call npm install
 if %errorlevel% neq 0 (
     echo ERROR: Failed to install server dependencies
@@ -66,23 +74,35 @@ echo Database migration completed successfully
 echo.
 
 echo Step 5: Generating JWT token...
+echo (This may take a moment...)
 call node init\generateToken.js
 if %errorlevel% neq 0 (
     echo ERROR: Token generation failed
     pause
     exit /b 1
 )
+echo JWT token generated successfully
 echo.
+
 
 echo ========================================
 echo   SETUP COMPLETE!
 echo ========================================
 echo.
-echo You can now start the application with:
-echo   cd server\server_nodejs
-echo   npm run dev:full
+echo Starting Node.js server with frontend in new terminal...
+set "ROOT_DIR=%CD%\..\.."
+cd ..\..
+start "All The Beans Node.js Full Stack" cmd /k "cd /d "%ROOT_DIR%\server\server_nodejs" && npm run dev:full"
+
 echo.
-echo This will start both the server (http://localhost:3001)
-echo and client (http://localhost:3000) simultaneously.
+echo ========================================
+echo   APPLICATION STARTING
+echo ========================================
+echo.
+echo Server and client starting in new terminal...
+echo Server will run on http://localhost:3001
+echo Client will run on http://localhost:3000
+echo.
+echo Wait for both services to start completely...
 echo.
 pause

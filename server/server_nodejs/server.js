@@ -34,6 +34,28 @@ function authenticateToken(req, res, next) {
 app.use(cors()); // Enable CORS for React app
 app.use(express.json()); // Parse JSON into objects
 
+// POST /api/auth/token - Generate bearer token
+app.post("/api/auth/token", (req, res) => {
+  try {
+    const payload = {
+      userId: "test-user",
+      username: "testuser",
+      role: "user",
+    };
+
+    const token = jwt.sign(payload, JWT_SECRET, { expiresIn: "7d" });
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days from now
+
+    res.json({
+      token: token,
+      expiresAt: expiresAt.toISOString(),
+    });
+  } catch (error) {
+    console.error("Error generating token:", error);
+    res.status(500).json({ error: "Failed to generate token" });
+  }
+});
+
 // GET /api/beans/botd - Get bean of the day (single entry)
 app.get("/api/beans/botd", async (req, res) => {
   try {
