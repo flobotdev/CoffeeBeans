@@ -18,6 +18,8 @@ React is a modern framework which is heavily used across the industry. I opted f
 
 Node.js + Express is a lightweight javascript backend which made it easy to make CRUD Restful APIs as well as connect it to the frontend.
 
+For .NET backend: I chose to use ASP .NET Core Web Api with entity framework core and PostgreSQL. Entity framework makes it easy to make queries without SQL knowledge having robust ORM capabilities with LINQ queries, and it works across different database providers. It also reduces risk of SQL injection because of it's strong typed objects.
+
 PostgreSQL is the only relational database I could find with easy setup.
 
 JWT authentication is a simple and straightfoward token based auth for this level of application.
