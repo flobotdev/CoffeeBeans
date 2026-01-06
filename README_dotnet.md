@@ -74,7 +74,7 @@ In general, I opted in for easiest setup and least reliance on third-party syste
 
 ### Backend
 
-- **.NET 8.0** - Runtime environment
+- **.NET 10.0** - Runtime environment
 - **ASP.NET Core** - Web framework
 - **Entity Framework Core** - ORM
 - **Npgsql** - PostgreSQL provider
@@ -91,7 +91,7 @@ This was developed and tested on a Windows setup.
 
    - Download from [nodejs.org](https://nodejs.org/)
 
-2. **.NET SDK** (8.0+)
+2. **.NET SDK** (10.0)
 
    - Download from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
 
@@ -337,7 +337,7 @@ Each coffee bean object contains:
 
 **.NET SDK Not Found**
 
-- Install .NET 8.0 SDK or higher from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
+- Install .NET 10.0 SDK or higher from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
 - Verify installation: `dotnet --version`
 
 **CORS Errors**
