@@ -198,7 +198,7 @@ This script will:
    ```
 
    - **Frontend**: http://localhost:3000
-   - **Backend**: https://localhost:7177 or http://localhost:5036
+   - **Backend**: http://localhost:5036
 
 ## API Endpoints
 
