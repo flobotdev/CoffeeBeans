@@ -91,6 +91,7 @@ In general, I opted in for easiest setup and least reliance on third-party syste
 This was developed and tested on a Windows setup.
 
 1. **Node.js** (v14+)
+
    - Download from [nodejs.org](https://nodejs.org/)
 
 2. **PostgreSQL Database**
@@ -141,6 +142,7 @@ setup_nodejs.bat
 ```
 
 This script will:
+
 - Install all dependencies for frontend and Node.js backend
 - Guide you through PostgreSQL database setup
 - Run database migration with sample data
@@ -182,6 +184,7 @@ This script will:
    ```
 
    Or start them separately:
+
    ```bash
    # Terminal 1: Start backend
    cd server/server_nodejs
@@ -291,25 +294,30 @@ Each coffee bean object contains:
 ### Common Issues
 
 **Database Connection Failed**
+
 - Ensure PostgreSQL is running
 - Check database credentials in `.env`
 - Verify database `coffee_beans_db` exists
 
 **CORS Errors**
+
 - Frontend and backend must run on different ports
 - Check CORS configuration in server.js
 - Ensure API calls use correct base URL
 
 **Port Already in Use**
+
 - Change PORT in `.env` or server.js
 - Kill process using the port: `npx kill-port 3001`
 
 **Search Not Working**
+
 - Check query parameter format: `?q=searchterm`
 - Ensure database indexes are created
 - Verify search term encoding
 
 **Authentication Issues**
+
 - Check JWT_SECRET in environment
 - Verify token format in Authorization header
 - Token generated via `/api/auth/token` endpoint

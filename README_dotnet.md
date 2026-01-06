@@ -88,9 +88,11 @@ In general, I opted in for easiest setup and least reliance on third-party syste
 This was developed and tested on a Windows setup.
 
 1. **Node.js** (v14+) - For React frontend
+
    - Download from [nodejs.org](https://nodejs.org/)
 
 2. **.NET SDK** (8.0+)
+
    - Download from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
 
 3. **PostgreSQL Database**
@@ -147,6 +149,7 @@ setup_net.bat
 ```
 
 This script will:
+
 - Install all frontend dependencies
 - Check for .NET SDK installation
 - Restore .NET dependencies
@@ -228,6 +231,7 @@ This script will:
 Entity Framework Core automatically creates and maintains the database schema. The main entities are:
 
 **Bean Entity:**
+
 ```csharp
 public class Bean
 {
@@ -243,6 +247,7 @@ public class Bean
 ```
 
 **BeanOfTheDay Entity:**
+
 ```csharp
 public class BeanOfTheDay
 {
@@ -324,38 +329,45 @@ Each coffee bean object contains:
 ### Common Issues
 
 **Database Connection Failed**
+
 - Ensure PostgreSQL is running
 - Check connection string in `appsettings.Development.json`
 - Verify database `coffee_beans_db` exists
 - Test connection manually with psql or pgAdmin
 
 **.NET SDK Not Found**
+
 - Install .NET 8.0 SDK or higher from [dotnet.microsoft.com](https://dotnet.microsoft.com/download)
 - Verify installation: `dotnet --version`
 
 **CORS Errors**
+
 - Frontend and backend must run on different ports
 - Check CORS configuration in Program.cs
 - Ensure API calls use correct base URL
 - Verify frontend URL is allowed in CORS policy
 
 **Port Already in Use**
+
 - Change port in `Properties/launchSettings.json`
 - Or use: `dotnet run --urls "http://localhost:5037"`
 - Kill process using the port
 
 **Entity Framework Issues**
+
 - Clear EF Core cache: `dotnet ef database drop` (warning: deletes data)
 - Recreate database: Application will auto-initialize on next run
 - Check migration status: `dotnet ef migrations list`
 
 **Authentication Issues**
+
 - Check JWT configuration in `appsettings.Development.json`
 - Verify token format in Authorization header: `Bearer <token>`
 - Ensure JWT secret is at least 32 characters
 - Token generated via `/api/auth/token` endpoint
 
 **Frontend Can't Connect to Backend**
+
 - Check `.env` file has correct API URL
 - Restart React dev server after changing `.env`
 - Verify backend is running and responding
